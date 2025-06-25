@@ -1,6 +1,29 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from './AuthProvider';
 
 const Navbar = () => {
+
+    const { users, signOutUser } = useContext(AuthContext);
+    const navigate = useNavigate()
+
+    const handleSignout = e => {
+        e.preventDefault()
+
+        signOutUser().
+            then(() => {
+                // Sign-out successful.
+            })
+            .catch((error) => {
+                console.error(error);
+
+                // An error happened.
+            });
+
+    }
+
+
+    // console.log(user);
     return (
         <div className="navbar bg-base-100 shadow-sm">
             <div className="navbar-start">
@@ -22,25 +45,24 @@ const Navbar = () => {
                         <li><a>Item 3</a></li>
                     </ul>
                 </div>
-                <a className="btn btn-ghost text-xl">daisyUI</a>
+                <Link to="/" className="btn btn-ghost text-3xl">FireBase Setup</Link>
             </div>
             <div className="navbar-center hidden lg:flex">
-                <ul className="menu menu-horizontal px-1">
-                    <li><a>Item 1</a></li>
-                    <li>
-                        <details>
-                            <summary>Parent</summary>
-                            <ul className="p-2">
-                                <li><a>Submenu 1</a></li>
-                                <li><a>Submenu 2</a></li>
-                            </ul>
-                        </details>
-                    </li>
-                    <li><a>Item 3</a></li>
+                <ul className="menu menu-horizontal px-1 text-xl font-bold">
+                    <li><Link to="/">Home</Link></li>
+                    <li><Link to="/login">Login</Link></li>
+                    <li><Link to="/register">Register</Link></li>
+                    <li><Link to="/example">Example</Link></li>
+                    {
+                        users && <li><Link to="/hideExam">HideExample</Link></li>
+                    }
+
                 </ul>
             </div>
             <div className="navbar-end">
-                <a className="btn">Button</a>
+                {
+                    users ? <><span className='mr-10'>(user: {users.email})</span> <button onClick={handleSignout} className="btn btn-primary">sign out</button></> : <button onClick={() => navigate('/login')} className="btn btn-primary">Login</button>
+                }
             </div>
         </div>
     );
