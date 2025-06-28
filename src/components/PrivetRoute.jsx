@@ -4,9 +4,13 @@ import { Navigate, useLocation } from "react-router-dom";
 
 
 const PrivetRoute = ({ children }) => {
-    const { users } = useContext(AuthContext)
+    const { users, loading } = useContext(AuthContext)
     const location = useLocation()
-    if (users && users?.email) {
+
+    if (loading) {
+        return <span className="loading loading-infinity loading-xl"></span>
+    }
+    if (users) {
         return children;
     }
 

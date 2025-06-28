@@ -52,6 +52,8 @@ const Navbar = () => {
                     <li><Link to="/">Home</Link></li>
                     <li><Link to="/login">Login</Link></li>
                     <li><Link to="/register">Register</Link></li>
+                    <li><Link to="/reactHookRegister">ReactHookRegister</Link></li>
+                    <li><Link to="/reactHookLogin">ReactHookLogin</Link></li>
                     <li><Link to="/example">Example</Link></li>
                     {
                         users && <li><Link to="/hideExam">HideExample</Link></li>
@@ -61,8 +63,9 @@ const Navbar = () => {
             </div>
             <div className="navbar-end">
                 {
-                    users ? <><span className='mr-10'>(user: {users.email})</span> <button onClick={handleSignout} className="btn btn-primary">sign out</button></> : <button onClick={() => navigate('/login')} className="btn btn-primary">Login</button>
+                    users ? <><span className='mr-10'>(user: {users.email} {users.displayName})</span> <button onClick={handleSignout} className="btn btn-primary">sign out</button></> : <button onClick={() => navigate('/login')} className="btn btn-primary">Login</button>
                 }
+
             </div>
         </div>
     );
